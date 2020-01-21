@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Market Cap</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for key,value in crypto.DISPLAY.items %}
+      <tr>
+        <td>{{ key }}</td>
+        <td>{{ value.USD.PRICE }}</td>
+        <td>{{ value.USD.MKTCAP }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

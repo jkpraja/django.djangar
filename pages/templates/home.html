@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="jumbotron">
+  {% if user.is_authenticated %}
+    <h1 class="display-4">Hello, {{ user.first_name }}!</h1>
+  {% else %}
+    <h1 class="display-4">Hello, world!</h1>
+  {% endif %}
+  <p class="lead">Welcome to the Cryptocurrency news network!</p>
+</div>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Market Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for key,value in price.DISPLAY.items %}
+    <tr>
+      <td>{{ key }}</td>
+      <td>{{ value.USD.PRICE }}</td>
+      <td>{{ value.USD.MKTCAP }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Symbol</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Market Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in stock %}
+    <tr>
+      <td>{{ item.symbol }}</td>
+      <td>{{ item.companyName }}</td>
+      <td>{{ item.marketCap }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="container">
+  <div class="row">
+    {% for x in api.Data %}
+      <div class="card" style="width: 18rem;">
+      <img src="{{ x.imageurl }}" class="card-img-top" alt=" {{ x.source }}">
+      <div class="card-body">
+        <h5 class="card-title"> {{ x.title }}</h5>
+        <p class="card-text"> {{ x.body }}</p>
+        <a href="{{ x.url }}" class="btn btn-primary"> Read More.. </a>
+      </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
